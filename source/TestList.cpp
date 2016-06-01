@@ -2,6 +2,13 @@
 #include "catch.hpp"
 #include "list.hpp"
 
+
+TEST_CASE("add an element with push_front" ,"[modifiers]"){
+	List <int> list;
+	list.push_front(42);
+	REQUIRE (42 == list.front());
+}
+
 /*
 TEST_CASE("vector","x,y"){
 
