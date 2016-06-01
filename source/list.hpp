@@ -207,4 +207,31 @@ private:
 	ListNode<T>* m_last = nullptr;
 };
 
+template<typename T>
+	bool operator==(List<T> const& xs, List<T> const& ys ){
+    	ListIterator<T> a = xs.begin();
+    	ListIterator<T> b = ys.begin();
+    	if(xs.size()!=ys.size()){
+    		return false;
+    	}
+
+
+		while(a != xs.end()){
+			if(*a != *b){
+				return false;
+			}
+    		++a;
+    		++b;
+		}
+		return true;
+    }
+
+
+
+
+template<typename T>
+  	bool operator!=(List<T> const& xs , List<T> const & ys ){
+      	return !(xs == ys);      
+    }
+
 # endif // # define BUW_LIST_HPP

@@ -68,6 +68,17 @@ list.push_front(42);
 REQUIRE(42 == *list.begin());
 }
 
+TEST_CASE("comparing 2 lists", "[iterators]")
+{
+List<int> l1;
+l1.push_front(42);
+List<int> l2;
+List<int> l3;
+l2.push_front(42);
+REQUIRE(l1 != l3);
+REQUIRE(l1 == l2);
+}
+
 /*
 TEST_CASE("vector","x,y"){
 
