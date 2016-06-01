@@ -41,6 +41,33 @@ TEST_CASE("delete an element with pop_back" ,"[modifiers]"){
 	list.pop_back();
 	REQUIRE (12 == list.back());
 }
+
+TEST_CASE("should be empty after clearing", "[modifiers]")
+{
+List <int> list;
+list.push_front(1);
+list.push_front(2);
+list.push_front(3);
+list.push_front(4);
+list.clear ();
+REQUIRE(list.empty());
+}
+
+TEST_CASE ("should be an empty range after default construction", "[iterators]")
+{
+List<int> list;
+auto b = list.begin();
+auto e = list.end();
+REQUIRE(b == e);
+}
+
+TEST_CASE("provide acces to the first element with begin", "[iterators]")
+{
+List<int> list;
+list.push_front(42);
+REQUIRE(42 == *list.begin());
+}
+
 /*
 TEST_CASE("vector","x,y"){
 
@@ -54,6 +81,7 @@ TEST_CASE("vector","x,y"){
 
 }
 */
+
 
 
 int main(int argc, char *argv[])

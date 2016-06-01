@@ -19,11 +19,52 @@ m_value(v), m_prev(prev), m_next(next)
 template <typename T>
 struct ListIterator
 {
+	typedef ListIterator<T> Self;
+	typedef T value_type;
+	typedef T* pointer;
+	typedef T& reference ;
+	typedef ptrdiff_t difference_type;
+	typedef std::forward_iterator_tag iterator_category;
+
 	friend class List <T>;
-// not implemented yet
+
+	ListIterator(): m_node(nullptr) {};
+	ListIterator(ListNode <T>* n): m_node(n) {};
+	reference operator*() const {return m_node->m_value;}
+	pointer operator->() const {return &m_node->m_value;}
+	Self & operator++() {
+		if (m_node)
+            m_node = m_node->m_next;
+        return *this;
+	}
+
+	Self operator++(int) {
+		auto old{*this};
+		if (m_node)
+            m_node = m_node->m_next;
+        return old;
+	}
+
+	bool operator==(const Self& x ) const {return m_node == x.m_node;}
+	bool operator!=(const Self& x ) const {return m_node != x.m_node;}
+
+	Self next() const{
+		if(m_node){
+			return ListIterator ( m_node->m_next );
+		}
+
+		else{
+			return ListIterator (nullptr);
+		}
+	}
+	// not implemented yet
 private:
 	ListNode <T>* m_node = nullptr;
 };
+
+
+
+
 
 template <typename T>
 struct ListConstIterator
@@ -35,6 +76,15 @@ private:
 	ListNode <T>* m_node = nullptr;
 };
 
+
+
+
+
+
+
+
+
+
 template <typename T>
 class List
 {
@@ -43,6 +93,9 @@ public :
 		m_first{nullptr},
 		m_last{nullptr},
 		m_size{0}{}
+
+	~List(){ clear();}
+
 	typedef T value_type;
 	typedef T* pointer;
 	typedef const T* const_pointer;
@@ -113,28 +166,45 @@ public :
         	--m_size;
         	m_last->m_next = nullptr;
       	}
-    }      	
+    }
+
+    void clear() {
+      	for(int i = m_size; i!=0; --i) {
+        	pop_back();
+      	}
+    }
+
 
 	bool empty() const{
-    	if (m_size == 0)
-      		{return true;}
-    	else {return false;}
+    	return m_size == 0;
   	}
+
+	ListIterator<T> begin() const {
+    	return ListIterator<T>(m_first);
+	}
+
+    ListIterator<T> end() const {
+    	return ListIterator<T>(nullptr);
+    }
+
 
   	T& front() { return m_first->m_value; }
   	T& back() { return m_last->m_value; }
+
+  	T const& front() const { return m_first->m_value; }
+  	T const& back() const { return m_last->m_value; }
 	
 	std::size_t size() const{
 		return m_size;
 	}
 
-	friend class ListIterator <T>;
+	friend class ListIterator<T>;
 	friend class ListConstIterator <T>;
 	// not implemented yet
 private:
 	std::size_t m_size = 0;
-	ListNode <T>* m_first = nullptr;
-	ListNode <T>* m_last = nullptr;
+	ListNode<T>* m_first = nullptr;
+	ListNode<T>* m_last = nullptr;
 };
 
 # endif // # define BUW_LIST_HPP
