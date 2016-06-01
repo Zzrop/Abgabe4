@@ -20,6 +20,27 @@ TEST_CASE("add an element with push_back" ,"[modifiers]"){
 	REQUIRE (12 == list.back());
 	REQUIRE (42 == list.front());
 }
+TEST_CASE("delete an element with pop_front" ,"[modifiers]"){
+	List <int> list;
+	list.push_back(42);
+	list.pop_front();
+	REQUIRE (0 == list.size());
+	list.push_back(1);
+	list.push_back(2);
+	list.pop_front();
+	REQUIRE (2 == list.front());
+}
+
+TEST_CASE("delete an element with pop_back" ,"[modifiers]"){
+	List <int> list;
+	list.push_back(42);
+	list.pop_back();
+	REQUIRE (0 == list.size());
+	list.push_back(12);
+	list.push_back(34);
+	list.pop_back();
+	REQUIRE (12 == list.back());
+}
 /*
 TEST_CASE("vector","x,y"){
 
