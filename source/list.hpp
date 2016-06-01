@@ -63,7 +63,58 @@ public :
     	m_first = n;
     	++m_size;
   	}
+    void push_back(T const& x) {
+    	auto n = new ListNode<T>(x, m_last, nullptr);
+    	if(m_size == 0) {
+      		m_first = n;
+    	} 
+    	else {
+      		m_last->m_next = n;
+    	}
+
+    	m_last = n;
+    	++m_size;
+  	}
 	
+    void pop_front() {
+      	if(m_size == 1) {
+        	delete m_first;
+        	m_first = nullptr;
+        	m_last = nullptr;
+        	--m_size;
+        }
+
+
+        if(m_size > 1){
+        	m_first = m_first->m_next;
+        //auto foo = m_first->m_next;
+        //m_first = foo;
+        //auto bar = m_first->m_prev;
+       		delete m_first->m_prev;
+        	--m_size;
+        	m_first->m_prev = nullptr;
+      	}
+    }
+
+    void pop_back() {
+      	if(m_size == 1) {
+        	delete m_last;
+        	m_first = nullptr;
+        	m_last = nullptr;
+        	--m_size;
+      	}
+
+      	if(m_size > 1){
+        	m_last = m_last->m_prev;
+        //auto foo = m_first->m_next;
+        //m_first = foo;
+        //auto bar = m_first->m_prev;
+        	delete m_last->m_next;
+        	--m_size;
+        	m_last->m_next = nullptr;
+      	}
+    }      	
+
 	bool empty() const{
     	if (m_size == 0)
       		{return true;}

@@ -7,8 +7,19 @@ TEST_CASE("add an element with push_front" ,"[modifiers]"){
 	List <int> list;
 	list.push_front(42);
 	REQUIRE (42 == list.front());
+	list.push_front(12);
+	REQUIRE (12 == list.front());
+	REQUIRE (42 == list.back());
 }
 
+TEST_CASE("add an element with push_back" ,"[modifiers]"){
+	List <int> list;
+	list.push_back(42);
+	REQUIRE (42 == list.back());
+	list.push_back(12);
+	REQUIRE (12 == list.back());
+	REQUIRE (42 == list.front());
+}
 /*
 TEST_CASE("vector","x,y"){
 
